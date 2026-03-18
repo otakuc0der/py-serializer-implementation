@@ -4,6 +4,8 @@ from django.core.validators import (
 )
 from rest_framework import serializers
 
+from car.models import Car
+
 
 class CarSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -21,3 +23,6 @@ class CarSerializer(serializers.Serializer):
         allow_null=True,
         allow_blank=True
     )
+
+    def create(self, validated_data):
+        return Car.objects.create(**validated_data)
